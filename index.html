@@ -22,87 +22,188 @@
                 <span class="badge">LIVE CONNECTED</span>
             </div>
             <p>Manufacturing Execution System - Group Project</p>
+
+            <nav class="main-nav">
+                <button id="navDash" class="nav-btn active">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    Dashboard Monitor
+                </button>
+                <button id="navLogs" class="nav-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                    Riwayat Log
+                </button>
+            </nav>
         </header>
 
-        <div class="grid">
-            
-            <div class="card card-control">
-                <div class="card-header">
-                    <div class="card-title">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <path d="M12 6v6l4 2"/>
-                        </svg>
-                        Panel Kontrol
-                    </div>
-                </div>
+        <div id="viewDashboard" class="view-section">
+            <div class="grid">
                 
-                <div class="control-layout">
-                    <div class="control-group">
-                        <p class="label-text">Switch Utama</p>
-                        <div class="relay-status">
-                            <span class="indicator indicator-red"></span>
-                            Offline
-                        </div>
-                        <button id="btnRelay" class="btn-control btn-off">
-                            Loading...
-                        </button>
-                    </div>
-
-                    <div class="control-group">
-                        <p class="label-text">Indikator Keamanan</p>
-                        <div id="statusBox" class="status-box status-aman">
-                            --
+                <div class="card card-control">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 6v6l4 2"/>
+                            </svg>
+                            Panel Kontrol
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="card card-monitoring">
-                <div class="card-header">
-                    <div class="card-title">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M3 3v18h18"/>
-                            <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
-                        </svg>
-                        Monitoring Sensor
-                    </div>
-                </div>
-
-                <div class="sensor-grid">
                     
-                    <div class="sensor-card">
-                        <span class="sensor-label">Arus Motor (Ampere)</span>
-                        <div class="value-wrapper">
-                            <span id="valAmpere" class="sensor-value">0.0</span>
-                            <span class="sensor-unit">A</span>
+                    <div class="control-layout">
+                        <div class="control-group">
+                            <p class="label-text">Pengaturan Batas (Threshold)</p>
+                            <div class="setting-row">
+                                <div class="input-group">
+                                    <label>Max Ampere (A)</label>
+                                    <input type="number" id="inputMaxAmpere" step="0.1" placeholder="0.0", autocomplete="off">
+                                </div>
+                                <div class="input-group">
+                                    <label>Max Suhu (°C)</label>
+                                    <input type="number" id="inputMaxSuhu" step="1" placeholder="0", autocomplete="off">
+                                </div>
+                            </div>
+                            <button id="btnSaveConfig" class="btn-save">Simpan Pengaturan</button>
                         </div>
-                        <div class="sensor-trend">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
-                            Sensor ACS712
-                        </div>
-                    </div>
 
-                    <div class="sensor-card">
-                        <span class="sensor-label">Suhu Mesin (Celcius)</span>
-                        <div class="value-wrapper">
-                            <span id="valSuhu" class="sensor-value">0</span>
-                            <span class="sensor-unit">°C</span>
+                        <div class="control-group">
+                            <p class="label-text">Switch Utama</p>
+                            <div class="relay-status">
+                                <span class="indicator indicator-red"></span>
+                                Offline
+                            </div>
+                            <button id="btnRelay" class="btn-control btn-off">
+                                Loading...
+                            </button>
                         </div>
-                        <div class="sensor-trend">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
-                            Sensor DHT22
+
+                        <div class="control-group">
+                            <p class="label-text">Indikator Keamanan</p>
+                            <div id="statusBox" class="status-box status-aman">
+                                --
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="chart-container">
-                    <canvas id="myChart"></canvas>
-                </div>
-            </div>
+                <div class="card card-monitoring">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 3v18h18"/>
+                                <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
+                            </svg>
+                            Monitoring Sensor
+                        </div>
+                    </div>
+
+                    <div class="sensor-grid">
+    
+    <div class="sensor-card">
+        <span class="sensor-label">Arus Motor (Ampere)</span>
+        <div class="value-wrapper">
+            <span id="valAmpere" class="sensor-value">0.0</span>
+            <span class="sensor-unit">A</span>
+        </div>
+        <div class="sensor-trend">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+            Sensor ACS712
         </div>
     </div>
 
+    <div class="sensor-card">
+        <span class="sensor-label">Suhu Mesin (Celcius)</span>
+        <div class="value-wrapper">
+            <span id="valSuhu" class="sensor-value">0</span>
+            <span class="sensor-unit">°C</span>
+        </div>
+        <div class="sensor-trend">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+            Sensor DHT22
+        </div>
+    </div>
+
+    <div class="sensor-card">
+        <span class="sensor-label">Status Operasional</span>
+        <div class="value-wrapper">
+            <span id="valStatusMesin" class="sensor-value" style="font-size: 1.5rem; color: #94a3b8;">STANDBY</span>
+        </div>
+        <div class="sensor-trend">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            Realtime State
+        </div>
+    </div>
+
+</div>
+
+                    <div class="chart-container">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="viewLogs" class="view-section" style="display: none;">
+            <div class="grid-logs" style="display: flex; flex-direction: column; gap: 20px;">
+                
+                <div class="card card-logs">
+                    <div class="card-header" style="border-bottom-color: rgba(239, 68, 68, 0.2);">
+                        <div class="card-title" style="color: #f87171;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                            Log Indikator Keamanan (Bahaya)
+                        </div>
+
+                        <div style="display: flex; justify-content: flex-end; margin-bottom: 15px;">
+        <button id="btnClearLogs" class="btn-delete">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            Hapus Semua Riwayat
+        </button>
+    </div>
+
+    <div class="grid-logs" style="display: flex; flex-direction: column; gap: 20px;">
+
+                    </div>
+                    <div class="table-responsive">
+                        <table class="log-table">
+                            <thead><tr><th width="25%">Waktu</th><th>Pesan Peringatan</th></tr></thead>
+                            <tbody id="logTableSafety"><tr><td colspan="2" style="text-align:center;">Memuat...</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card card-logs">
+                    <div class="card-header" style="border-bottom-color: rgba(59, 130, 246, 0.2);">
+                        <div class="card-title" style="color: #60a5fa;">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                            Log Perubahan Ambang Batas
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="log-table">
+                            <thead><tr><th width="25%">Waktu</th><th>Detail Perubahan</th></tr></thead>
+                            <tbody id="logTableConfig"><tr><td colspan="2" style="text-align:center;">Memuat...</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card card-logs">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"></path><line x1="12" y1="2" x2="12" y2="12"></line></svg>
+                            Log Perubahan Status Mesin
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="log-table">
+                            <thead><tr><th width="25%">Waktu</th><th>Aksi</th></tr></thead>
+                            <tbody id="logTableStatus"><tr><td colspan="2" style="text-align:center;">Memuat...</td></tr></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    <audio id="alarmAudio" src="alarm.mp3" preload="auto"></audio>
     <script type="module" src="main.js"></script>
 </body>
 </html>
